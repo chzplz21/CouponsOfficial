@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		{id: "ten", src: 'url('+ localize_vars.HudsonNews_north_shopping_traveler + ')', noURL: localize_vars.HudsonNews_north_shopping_traveler, type: "shopping", terminal: "north"},
 		{id: "twelve", src: 'url('+ localize_vars.Inmotion1_north_shopping_traveler + ')', noURL: localize_vars.Inmotion1_north_shopping_traveler, type: "shopping", terminal: "north", foodOk: "yes", termOk: "yes"},
 		{id: "thirteen", src: 'url('+ localize_vars.JuanValdez_north_dining_traveler + ')', noURL: localize_vars.JuanValdez_north_dining_traveler, type: "dining", terminal: "north", foodOk: "yes", termOk: "yes"},
-		{id: "fourteen", src: 'url('+ localize_vars.KFC_north_dining_traveler + ')', noURL: localize_vars.KFC_north_dining_traveler, type: "cars", terminal: "north", foodOk: "yes", termOk: "yes"},
+		{id: "fourteen", src: 'url('+ localize_vars.KFC_north_dining_traveler + ')', noURL: localize_vars.KFC_north_dining_traveler, type: "dining", terminal: "north", foodOk: "yes", termOk: "yes"},
 		{id: "fifteen", src: 'url('+ localize_vars.MiamiGifttoGo_north_shopping_traveler + ')', noURL: localize_vars.MiamiGifttoGo_north_shopping_traveler, type: "shopping", terminal: "b", foodOk: "yes", termOk: "yes"},
 		{id: "sixteen", src: 'url('+ localize_vars.MiamiNewsNow_north_shopping_traveler + ')', noURL: localize_vars.MiamiNewsNow_north_shopping_traveler, type: "shopping", terminal: "b", foodOk: "yes", termOk: "yes"},
 		{id: "seventeen", src: 'url('+ localize_vars.Newslink_north_shopping_traveler + ')', noURL: localize_vars.Newslink_north_shopping_traveler, type: "shopping", terminal: "b", foodOk: "yes", termOk: "yes"},
@@ -115,17 +115,68 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		
 		box.style.backgroundImage = Objects[i].src;
 		
+
+		
+		//creates plus sign for each coupon 
+		var Plus = document.createElement("div");
+		Plus.className = "Plus";
+		Plus.id = "PlusID";
+		
+		//Creates plus sign to put in Plus box
+		var plusSign = document.createTextNode("+");
+		plusSign.className = "plusSign";
+		Plus.appendChild(plusSign);
+		
+		
+		//adds bottom bar
+		var bottomBar = document.createElement("div");
+		bottomBar.className = "bottomBar";
+		
+		//adds Saved Bottom bar
+		var bottomBarSaved = document.createElement("div");
+		bottomBarSaved.className = "bottomBarSaved";
+		var SavedText = document.createTextNode("\u2714 SAVED");
+		bottomBarSaved.appendChild(SavedText);
+		
+		//creates label
 		var L = document.createElement("label");
 		L.id = Objects[i].id;
+		L.className = "bottomLabel";
+		var labelText = document.createTextNode("SAVE");
+		L.appendChild(labelText);
+		bottomBar.appendChild(L);
 		
-		//console.log(L);
-		var c = document.createElement("input");
-		c.type = "checkbox";
 		
-		f.appendChild(L);
-		L.appendChild(c);
+		//creates save input button within bottom bar
+		var saveButton = document.createElement("input");
+		saveButton.type = "checkbox";
+		//appends saveButton to label
+		L.appendChild(saveButton);
 		
-		L.appendChild(box);
+		
+		//creates print input button within bottom bar
+		var printButton = document.createElement("div");
+		printButton.className = "PrintButton";
+		
+		printButton.value = "Print";
+		var printText = document.createTextNode("PRINT");
+		printButton.appendChild(printText);
+		//appends print button to bottom bar
+		bottomBar.appendChild(printButton);
+		
+		
+	
+		
+		//Adds coupon box
+		f.appendChild(box);
+		//Adds plus sign to box
+		box.appendChild(Plus);
+		//Adds bottom bar to box
+		box.appendChild(bottomBar);
+		//Adds saved bottom bar to box
+		box.appendChild(bottomBarSaved);
+		
+		
 		$("body").append(f);
 	}
 	
@@ -141,27 +192,72 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	}
 	
 	
-	//popUp box on click 
-	/*
-	$(".CouponBox").on( "click",  popUp );
-	function popUp() {
-		$('#popUp').css("display", "block");
-	}
+	//Shows bottom bar on click of coupon itself
 	
+	$(".CouponBox").on( "click",  showBottomBarTwo );
 	
-	$('#popUp').on( "click",  popUpReaction );
-	function popUpReaction() {
-		$('#popUp').css("display", "none");
+	function showBottomBarTwo() {
+		if ( $(this).find('input').prop("checked") == false ) {
+		
+			$(this).find('.bottomBar').show();
+		}
 	}
-	*/
 	
 	//Stuff that takes care of the check counter!
 	var checkedTotal = 0;
 	counterShower.innerHTML = checkedTotal;
-	//counter for checks
-	$("#theForm :checkbox").on( "click",  countChecked );
 	
-	function countChecked() {
+	$("#theForm :checkbox").click(function(event) {
+		
+			checkedTotal++;
+			
+			//toggles off regular bottom bar
+			event.stopPropagation();
+			$(this).closest('.bottomBar').hide();
+			//toggles in saved bottom bar
+			$(this).closest('.bottomBar').siblings('.bottomBarSaved').css("display", "block");
+			
+			//$(this).closest('.bottomLabel').text("UNSAVE");
+	
+		counterShower.innerHTML = checkedTotal;
+		
+		if ( $(this).closest('.bottomLabel').is(':contains("UNSAVE")') ) {
+			alert("hey");
+		}
+		
+		
+	});
+		
+		
+	//makes 'bottomBarSaved' disappear and 'bottomBar' reappear on mouseaway, finally bottom bar changes to 'UNSAVE'
+	/*
+	$('.bottomBarSaved').mouseout(function(){
+				
+		$(this).css("display", "none");
+		$(this).siblings('.bottomBar').css("display", "block");
+		//Changes text on label to "unsave"
+		//$(this).siblings('.bottomBar').find('.bottomLabel').text("UNSAVE");
+					
+	});
+	*/
+	
+			
+
+	
+
+	
+	
+	
+
+	//counter for checks
+	/*
+	$("#theForm #saveButton").click(function(event){
+	
+		event.stopImmediatePropagation();
+		alert("yo");
+	});
+	*/	
+		/*
 		if (this.checked == true) {
 			checkedTotal++;
 			
@@ -172,16 +268,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			
 		}
 		counterShower.innerHTML = checkedTotal;
-	}
+		*/
+
 	
-	
-	
-	
-	
-	
+
 	//Prints Function
-	$("#PrintSelected").on("click", PrintFunction);
-	function PrintFunction() {
+	$("#PrintSelected").on("click", PrintMultiple);
+	function PrintMultiple() {
 		
 		//creates empty array of pictures
 		var pictures = [];
@@ -189,6 +282,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		for (var i = 0; i<Objects.length; i++) {
 			//gets id of Label element for each input
 			var ElementNow = document.getElementById(Objects[i].id);
+			
 			//gets input value, whether it is checked or not
 			var input =  ElementNow.getElementsByTagName('input')[0];
 			
@@ -217,7 +311,60 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			
 		}
 			
-				var windowUrl = 'about:blank';
+			ActuallyPrint(pictures);
+			
+		
+	}
+	
+	
+	//prints individual coupon
+	$("#theForm .PrintButton").on( "click",  printIndividual );
+	
+	function printIndividual() {
+		//creates empty array of pictures
+		var pictures = [];
+		//parent  box of the selected print
+		var parentBoxOfSelected = $(this).parent();
+		//Gets ID of label within that parent box
+		var idOfLabel = parentBoxOfSelected.find("label").prop("id");
+		
+		//Goes through each object to find where the id of that label equals the id within that specific object
+		for (var i = 0; i<Objects.length; i++) {
+			if (Objects[i].id == idOfLabel) {
+					//gets just the raw image url of that input. Can be found as a value in the Object
+				var picURL = Objects[i].noURL;
+				//creates a new image.. the raw url will be added to it
+				var Image = document.createElement("IMG");
+				Image.style.height = '120px';
+				Image.style.width = '200px';
+				
+				//This is where the raw url is added
+				Image.setAttribute("src", picURL);
+				//Must do this function to convert Image object to string
+				Image = outerHTML(Image);
+			
+				function outerHTML(node){
+					return node.outerHTML || new XMLSerializer().serializeToString(node);
+				}
+				//push the Image string to the pictures array
+				pictures.push(Image);
+			}
+			
+			}
+			
+			ActuallyPrint(pictures);
+			
+				
+	}
+	
+	
+	
+	
+	
+	
+	function ActuallyPrint(pictures) {
+		
+		var windowUrl = 'about:blank';
 				var uniqueName = new Date();
 				var windowName = 'Print' + uniqueName.getTime();
 				
@@ -234,9 +381,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				}
 			
 				
-				 
-				
-			
 				//goes through pictures array
 				for (var m = 0; m<pictures.length; m++) {
 					
@@ -245,13 +389,32 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				}
 				
 				//Weird thing, but is necessary to correctly print the pictures
-				printWindow.document.write('<scr' + 'ipt type="text/javascript">' + 'window.onload = function() { window.print();  };' + '</sc' + 'ript>');
+				//printWindow.document.write('<scr' + 'ipt type="text/javascript">'  /*+ 'window.onload = function() { window.print();  };' + */ '</sc' + 'ript>');
+				
+				//printWindow.document.write('<button onclick="PrintPage();"> Print! </button>');
+				
+				//printWindow.document.write('<scr' + 'ipt type="text/javascript">' + 'window.onload = function() { window.print();  };' + '</sc' + 'ript>');
+				
+				printWindow.document.write(' <button onclick="PrintPage();">Print!</button> ');
+				
+				printWindow.document.write('<scr' + 'ipt type="text/javascript">'  + 'function PrintPage() { window.print(); }' + '</sc' + 'ript>');
+						
+					
+					
 				
 				
 				printWindow.document.close();
 				printWindow.focus();
-		
+	
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -282,6 +445,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	//FILTER FUNCTION!
 	$("#FilterForm :checkbox").on( "click",  filterFunction);
 	function filterFunction() {
+		
 		
 		var checkedArray = [];
 		var thisForm = document.getElementById("FilterForm");
@@ -317,10 +481,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		}
 		
 		
-		 else if (typeFlag == true && terminalFlag == true) {
+		else if (typeFlag == true && terminalFlag == true) {
 			BothFunction(checkedArray);
 		}
-		
 		
 		
 		else if (typeFlag == false) {
@@ -329,7 +492,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		}
 		
 		
-		else if (terminalFlag == false) {
+		else if (terminalFlag == false) {	
 			
 			var property = "type";
 			OnlyOne(checkedArray, property);
@@ -342,15 +505,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	//Both Function, for if at least one of Type and one of Terminal are checked
 	function BothFunction(checkedArray) {
 		
-		
 	//goes through each object
 		for (var i = 0; i<Objects.length; i++) {
 			
-			
 			var typeFlag = false;
 			var terminalFlag = false;
+			//The label
 			var elementNow = document.getElementById(Objects[i].id);
-			
+			//Box is the actual coupon
+			var Box = elementNow.parentNode.parentNode;
 			//nested loop, goes through each checkedArray element, if both type and terminal
 			//are found in checkedArray, then set those flags, typeFlag and terminalFlag, as true
 			for (var y = 0; y < checkedArray.length; y++) {
@@ -365,8 +528,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			}
 			//If they're both true, than display
 			if (typeFlag == true && terminalFlag == true) {
-				if (elementNow.style.display == "none") {
-							elementNow.style.display = "inline-block";
+				if (Box.style.display == "none") {
+							Box.style.display = "inline-block";
 						}	
 					}
 			
@@ -379,30 +542,29 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	
 	}
 	
-	
-	
-	
+
 	//If only one of either is selected
 	function OnlyOne(checkedArray, property) {
 	
-		
 		for (var i = 0; i<Objects.length; i++) {
+			//The label
 			var elementNow = document.getElementById(Objects[i].id);
+			//Box is the actual coupon
+			var Box = elementNow.parentNode.parentNode;
+			
+		
 			var Flag = false;
 			for (var y = 0; y < checkedArray.length; y++) {
-				
 				if (Objects[i][property] == checkedArray[y]) {
-					Flag = true
-					
+					Flag = true;
 					
 				}
 				
-			
 			}
 			
 			if (Flag == true) {
-				if (elementNow.style.display == "none") {
-							elementNow.style.display = "inline-block";
+				if (Box.style.display == "none") {
+							Box.style.display = "inline-block";
 						}	
 					}
 			
@@ -413,6 +575,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			
 				
 		}
+		
 					
 	}
 	
@@ -422,20 +585,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		
 		var FilterForm = document.getElementById("FilterForm");
 		var inputs = FilterForm.getElementsByClassName('inputs');
-		
+		console.log(inputs.length);
 		for (var x = 0; x < inputs.length; x++) {
 			inputs[x].checked = false;
 		}
 		
-		var cool = document.getElementById(Objects[0].id);
-		cool.style.display = "inline-block";
-		console.log(cool);
+		
 		
 		for (var i = 0; i<Objects.length; i++) {
+			//the label
 			var elementCheck = document.getElementById(Objects[i].id);
+			//the actual Coupon
+			var Box = elementCheck.parentNode.parentNode;
 				
-				if (elementCheck.style.display == "none") {
-					elementCheck.style.display = "inline-block";
+				if (Box.style.display == "none") {
+					Box.style.display = "inline-block";
 					
 					
 				}
@@ -451,11 +615,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	//Makes element disappear
 
 	function FormDisappear(i) {
-		
+		//the label
 		var child = document.getElementById(Objects[i].id);
+		//the actual coupon
+		var Box = child.parentNode.parentNode;
 		//console.log(child);
 		
-		child.style.display = "none";
+		Box.style.display = "none";
 		
 			
 	}
