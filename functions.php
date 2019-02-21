@@ -27,7 +27,6 @@ function child_scripts() {
 	wp_enqueue_script('createCoupons', get_stylesheet_directory_uri() . '/scripts/createCoupons.js',  array('jquery'), null, true);
 	
 	
-	
 	  wp_localize_script( 
         'createCoupons', 
         'localize_vars', 
