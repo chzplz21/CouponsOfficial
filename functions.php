@@ -21,19 +21,24 @@ add_theme_support( 'custom-background', $defaults );
 add_action('wp_enqueue_scripts', 'child_scripts');
 
 function child_scripts() {
-	wp_enqueue_script('MyScripts', get_stylesheet_directory_uri() . '/scripts/scripts.js',  array('jquery'), null, true);
+	//wp_enqueue_script('MyScripts', get_stylesheet_directory_uri() . '/scripts/scripts.js',  array('jquery'), null, true);
+	wp_enqueue_script('App', get_stylesheet_directory_uri() . '/scripts/app.js',  array('jquery'), null, true);
+	wp_enqueue_script('domCreator', get_stylesheet_directory_uri() . '/scripts/domCreator.js',  array('jquery'), null, true);
+	wp_enqueue_script('createCoupons', get_stylesheet_directory_uri() . '/scripts/createCoupons.js',  array('jquery'), null, true);
+	
+	
 	
 	  wp_localize_script( 
-        'MyScripts', 
+        'createCoupons', 
         'localize_vars', 
         array( 
             'url' => get_stylesheet_directory_uri(),
             'path' => get_stylesheet_directory(),
 			//North Terminal
 			'Airessentials_north_shopping_traveler' => get_stylesheet_directory_uri() . '/images/NorthTerminal/Airessentials_north_shopping_traveler.jpg',
-			'BacardiMojito_north_dining_traveler' => get_stylesheet_directory_uri() . '/images/NorthTerminal/BacardiMojito_north_dining_traveler',
+			'BacardiMojito_north_dining_traveler' => get_stylesheet_directory_uri() . '/images/NorthTerminal/BacardiMojito_north_dining_traveler.jpg',
 			'BijouxTerner_north_shopping_traveler' => get_stylesheet_directory_uri() . '/images/NorthTerminal/BijouxTerner_north_shopping_traveler.jpg',
-			'BooklinkCafe_north_shopping_traveler' => get_stylesheet_directory_uri() . '/images/NorthTerminal/BooklinkCafe_north_shopping_traveler',
+			'BooklinkCafe_north_shopping_traveler' => get_stylesheet_directory_uri() . '/images/NorthTerminal/BooklinkCafe_north_shopping_traveler.jpg',
 			'Brito_north_shopping_traveler' => get_stylesheet_directory_uri() . '/images/NorthTerminal/Brito_north_shopping_traveler.jpg',
 			'CalvinKlein_north_shopping_traveler' => get_stylesheet_directory_uri() . '/images/NorthTerminal/CalvinKlein_north_shopping_traveler.jpg',
 			'DutyFree_north_shopping_traveler' => get_stylesheet_directory_uri() . '/images/NorthTerminal/DutyFree_north_shopping_traveler.jpg',
@@ -61,10 +66,10 @@ function child_scripts() {
 			
 			//Central Terminal
 			'Affordableluxuries_central_shopping_traveler' => get_stylesheet_directory_uri() . '/images/CentralTerminal/Affordableluxuries_central_shopping_traveler.jpg',
-			'BaysideBrush_central_shopping_traveler' => get_stylesheet_directory_uri() . '/images/CentralTerminal/Affordableluxuries_central_shopping_traveler.jpg',
-			'BijouTerner_central_shopping_traveler' => get_stylesheet_directory_uri() . '/images/CentralTerminal/BaysideBrush_central_shopping_traveler.jpg',
-			'Books4travel_central_shopping_traveler' => get_stylesheet_directory_uri() . '/images/CentralTerminal/BijouTerner_central_shopping_traveler.jpg',
-			'Brookstone_central_shopping_traveler' => get_stylesheet_directory_uri() . '/images/CentralTerminal/Books4travel_central_shopping_traveler.jpg',
+			'BaysideBrush_central_shopping_traveler' => get_stylesheet_directory_uri() . '/images/CentralTerminal/BaysideBrush_central_shopping_traveler.jpg',
+			'BijouTerner_central_shopping_traveler' => get_stylesheet_directory_uri() . '/images/CentralTerminal/BijouTerner_central_shopping_traveler.jpg',
+			'Books4travel_central_shopping_traveler' => get_stylesheet_directory_uri() . '/images/CentralTerminal/Books4travel_central_shopping_traveler.jpg',
+			'Brookstone_central_shopping_traveler' => get_stylesheet_directory_uri() . '/images/CentralTerminal/Brookstone_central_shopping_traveler.jpg',
 			'BurgerKing_central_dining_traveler' => get_stylesheet_directory_uri() . '/images/CentralTerminal/BurgerKing_central_dining_traveler.jpg',
 			'Chilis_central_dining_traveler' => get_stylesheet_directory_uri() . '/images/CentralTerminal/Chilis_central_dining_traveler.jpg',
 			'DunkinDunuts_central_dining_traveler' => get_stylesheet_directory_uri() . '/images/CentralTerminal/DunkinDunuts_central_dining_traveler.jpg',
@@ -117,7 +122,7 @@ function child_scripts() {
 			'Quiznos_south_dining_traveler' => get_stylesheet_directory_uri() . '/images/SouthTerminal/Quiznos_south_dining_traveler.jpg',
 			'SoundBalance_south_shopping_traveler' => get_stylesheet_directory_uri() . '/images/SouthTerminal/SoundBalance_south_shopping_traveler.jpg',
 			'StellarNews_south_shopping_traveler' => get_stylesheet_directory_uri() . '/images/SouthTerminal/StellarNews_south_shopping_traveler.jpg',
-			'SunglassIcon_south_shopping_traveler' => get_stylesheet_directory_uri() . '/images/SouthTerminal/SunglassIcon_south_shopping_traveler',
+			'SunglassIcon_south_shopping_traveler' => get_stylesheet_directory_uri() . '/images/SouthTerminal/SunglassIcon_south_shopping_traveler.jpg',
 			'TheBeadFactory_south_shopping_traveler' => get_stylesheet_directory_uri() . '/images/SouthTerminal/TheBeadFactory_south_shopping_traveler.jpg',
 			'Tous_south_shopping_traveler' => get_stylesheet_directory_uri() . '/images/SouthTerminal/Tous_south_shopping_traveler.jpg',
 			'Tumi_south_shopping_traveler' => get_stylesheet_directory_uri() . '/images/SouthTerminal/Tumi_south_shopping_traveler.jpg',
