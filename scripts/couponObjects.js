@@ -1,12 +1,6 @@
 
-
-
-      /* /src/js/background.js */
-      var createCoupons = (function() {
-
-
-        //All objects
-        var Objects = [
+        //All coupon objects
+        var couponObjects =  [
           //north terminal 
             {id: "one", src: 'url('+ localize_vars.Airessentials_north_shopping_traveler + ')', noURL: localize_vars.Airessentials_north_shopping_traveler, type: "shopping", terminal: "north", foodOk: "yes", termOk: "yes"},
             {id: "two", src: 'url('+ localize_vars.BacardiMojito_north_dining_traveler + ')', noURL: localize_vars.BacardiMojito_north_dining_traveler, type: "dining", terminal: "north", foodOk: "yes", termOk: "yes"},
@@ -101,27 +95,10 @@
             
           ]
     
-        function createThem() {
-          
-          //On page load, creates everything
-          for (var i = 0; i<Objects.length; i++) {
-              var creator = Object.create(domCreator);
-              creator.formCreate(i, Objects);
-            }
-            
-        }
-    
-        function init() {
-    
-          createThem();
         
-        }
-      
-        
-        return {
-          init: init
-        };
-      }());
+    
+  
+    
     
     
     

@@ -24,11 +24,17 @@ function child_scripts() {
 	//wp_enqueue_script('MyScripts', get_stylesheet_directory_uri() . '/scripts/scripts.js',  array('jquery'), null, true);
 	wp_enqueue_script('App', get_stylesheet_directory_uri() . '/scripts/app.js',  array('jquery'), null, true);
 	wp_enqueue_script('domCreator', get_stylesheet_directory_uri() . '/scripts/domCreator.js',  array('jquery'), null, true);
-	wp_enqueue_script('createCoupons', get_stylesheet_directory_uri() . '/scripts/createCoupons.js',  array('jquery'), null, true);
+	wp_enqueue_script('couponObjects', get_stylesheet_directory_uri() . '/scripts/couponObjects.js',  array('jquery'), null, true);
+	wp_enqueue_script('couponBox', get_stylesheet_directory_uri() . '/scripts/couponBox.js',  array('jquery'), null, true);
+	wp_enqueue_script('counter', get_stylesheet_directory_uri() . '/scripts/counter.js',  array('jquery'), null, true);
+	wp_enqueue_script('print', get_stylesheet_directory_uri() . '/scripts/print.js',  array('jquery'), null, true);
+	wp_enqueue_script('filter', get_stylesheet_directory_uri() . '/scripts/filter.js',  array('jquery'), null, true);
+	wp_enqueue_script('topBar', get_stylesheet_directory_uri() . '/scripts/topBar.js',  array('jquery'), null, true);
+	
 	
 	
 	  wp_localize_script( 
-        'createCoupons', 
+        'couponObjects', 
         'localize_vars', 
         array( 
             'url' => get_stylesheet_directory_uri(),

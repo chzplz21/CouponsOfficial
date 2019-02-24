@@ -85,12 +85,11 @@
 				</div>
 			</div>
 			
-		
 			<div id = "RibbonBox"></div>
 		</div>
 		
 		<div class = "sliderContainer">	
-			<?php echo do_shortcode('[rev_slider alias="home"]'); ?>
+			
 			<!--<img src="<?php echo get_stylesheet_directory_uri(); ?>/Images/SantaSlide1.jpg"/> -->
 			
 		</div>

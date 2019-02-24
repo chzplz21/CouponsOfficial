@@ -316,7 +316,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		
 	}
 	
-	
 	//prints individual coupon
 	$("#theForm .PrintButton").on( "click",  printIndividual );
 	
@@ -399,10 +398,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				
 				printWindow.document.write('<scr' + 'ipt type="text/javascript">'  + 'function PrintPage() { window.print(); }' + '</sc' + 'ript>');
 						
-					
-					
-				
-				
 				printWindow.document.close();
 				printWindow.focus();
 	
@@ -445,7 +440,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	//FILTER FUNCTION!
 	$("#FilterForm :checkbox").on( "click",  filterFunction);
 	function filterFunction() {
-		
 		
 		var checkedArray = [];
 		var thisForm = document.getElementById("FilterForm");

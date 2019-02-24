@@ -1,12 +1,11 @@
-
-var domCreator =  {
+var domCreator =  (function() {
    
-    formCreate: function(i, Objects) {  // Method which will display type of Animal
+    function formCreate(i) {  
         
         var f = document.getElementById("theForm");
 		var box = document.createElement("div");
 		box.className = "CouponBox";
-		box.style.backgroundImage = Objects[i].src;
+		box.style.backgroundImage = couponObjects[i].src;
 		
 
 		//creates plus sign for each coupon 
@@ -28,7 +27,7 @@ var domCreator =  {
 		
 		//creates label for save button
 		var L = document.createElement("label");
-		L.id = Objects[i].id;
+		L.id = couponObjects[i].id;
 		L.className = "bottomLabel";
 		
 		var labelText = document.createTextNode("SAVE");
@@ -70,8 +69,27 @@ var domCreator =  {
 		box.appendChild(bottomBarSaved);
 		
 		
-    }
+	}
+	
+	function createThem() {
+          
+		//On page load, creates everything
+		for (var i = 0; i<couponObjects.length; i++) {
+			formCreate(i);
+		  }
+		  
+	  }
+
+
+
+	  function init() {
+        createThem();
     
+    }
+  
+    return {
+      init: init
+    };
 
 
-};
+  }());
