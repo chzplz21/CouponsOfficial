@@ -124,24 +124,14 @@ var print = (function() {
 
         }
 
-
-
-
-
-
-
-
-
+        function init() {
+            bindFunctions();
+        
+        }
     
-
-    function init() {
-        bindFunctions();
-    
-    }
-  
-    return {
-      init: init
-    };
+        return {
+        init: init
+        };
 
 
   }());
